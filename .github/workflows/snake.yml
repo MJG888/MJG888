@@ -13,24 +13,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Generate snake
-        uses: Platane/snk/svg-only@v3
+        uses: Platane/snk@v3
         with:
           github_user_name: MJG888
           outputs: |
-            dist/github-snake.svg?color_snake=%239b59b6&color_dots=%23ebedf0%2C%239be9a8%2C%2340c463%2C%2330a14e%2C%232161e6
-            dist/github-snake-dark.svg?color_snake=%23c084fc&color_dots=%23161b22%2C%230e4429%2C%23006d32%2C%2326a641%2C%2339d353
+            dist/github-contribution-grid-snake.svg?palette=github-dark
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Deploy to output branch
+      - name: Publish snake
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
           publish_branch: output
+          publish_dir: ./dist
           force_orphan: true
-          commit_message: "Update contribution snake"
